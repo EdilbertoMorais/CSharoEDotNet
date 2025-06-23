@@ -1,0 +1,57 @@
+@model IEnumerable<ClienteModel>
+
+<h1>CLientes</h1>
+
+@if(!string.IsNullOrEmpty((String)TempData["mensagemSucesso"]!))
+{
+<div class="alert alert-warning" role="alert">@TempData["mensagemSucesso"]</div>    
+}
+
+<p>
+    <!-- uso de TagHelpers para definir o Controller e a Action -->   
+    <a asp-action="Create" asp-controller="Cliente" class="btn btn-success">Novo Cliente</a>
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Email</th>
+        <th>Data Nascimento</th>
+        <th>Representante</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var cliente in Model)
+    {
+        <tr>
+            <td>
+                <label>@cliente.ClienteId</label>
+            </td>
+            <td>
+                <label>@cliente.Nome</label>
+            </td>
+            <td>
+                <label>@cliente.Sobrenome</label>
+            </td>
+            <td>
+                <label>@cliente.Email</label>
+            </td>
+            <td>
+                <label>@cliente.DataNascimento</label>
+            </td>
+            <td>
+                <label>@cliente.Representante?.NomeRepresentante</label>
+            </td>
+            <td>
+                <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@cliente.ClienteId" class="btn btn-sm btn-primary">Editar</a>
+                <a asp-controller="Cliente" asp-action="Detail" asp-route-id="@cliente.ClienteId" class="btn btn-sm btn-info">Consultar</a>
+                <a asp-controller="Cliente" asp-action="Delete" asp-route-id="@cliente.ClienteId" class="btn btn-sm btn-danger">Excluir</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
